@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Greeting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      transition: background 0.5s;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #nameInput {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+
+    #greeting {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #followBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .heart {
+      position: fixed;
+      top: 0;
+      font-size: 24px;
+      animation-name: float;
+      animation-timing-function: linear;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome!</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button onclick="sayHi()">Say Hi</button>
+
+  <div id="greeting"></div>
+  <button id="followBtn">Follow Me</button>
+
+  <script>
+    function sayHi() {
+      const name = document.getElementById('nameInput').value.trim();
+      const greetingDiv = document.getElementById('greeting');
+      const followBtn = document.getElementById('followBtn');
+
+      if(name === "") {
+        greetingDiv.innerHTML = "Please enter your name 🌼";
+        followBtn.style.display = "none";
+        return;
+      }
+
+      if(name.toLowerCase() === "netra") {
+        // Special behavior for "Netra"
+        greetingDiv.innerHTML = `Hi, it's me Rahul! Can you follow me so I can ... 💖`;
+        followBtn.style.display = "inline-block";
+        createHearts(20); // more hearts
+        document.body.style.background = "linear-gradient(135deg, #ff6ec7, #ff9ccf)";
+      } else {
+        // For all other users
+        greetingDiv.innerHTML = "Hi to all! 👋";
+        followBtn.style.display = "inline-block";
+        createHearts(8); // normal hearts
+        document.body.style.background = "linear-gradient(135deg, #00c6ff, #0072ff)";
+      }
+    }
+
+    // Updated createHearts function to allow custom number
+    function createHearts(count=8) {
+      for(let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+  </script>
+
+</body>
+</html>
